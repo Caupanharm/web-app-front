@@ -5,6 +5,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 import {
   AccordionMatchElementProps,
   V1LifetimeMatchItem,
@@ -77,7 +78,7 @@ const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
           },
         }}
       >
-        <Typography>{formatSummary(data)}</Typography>
+      {formatSummary(data)}
       </AccordionSummary>
       <AccordionDetails>
         <MatchSummary data={data}/>
@@ -92,6 +93,7 @@ function formatSummary(data: V1LifetimeMatchItem) {
 
   let allyScore: number, enemyScore: number;
   let formattedResult: string = "";
+  let formattedScore: string = "";
 
   if (data.teams.red != undefined && data.teams.blue != undefined) {
     if (data.stats.team.toLowerCase() === "red") {
@@ -103,15 +105,25 @@ function formatSummary(data: V1LifetimeMatchItem) {
     }
 
     if (allyScore == enemyScore) {
-      formattedResult = `Egalité ${allyScore}-${enemyScore}`;
+      formattedResult = "Egalité"
+      formattedScore = `${allyScore}-${enemyScore}`
     } else if (allyScore > enemyScore) {
-      formattedResult = `Victoire ${allyScore}-${enemyScore}`;
+      formattedResult = "Victoire"
+      formattedScore = `${allyScore}-${enemyScore}`
     } else {
-      formattedResult = `Défaite ${allyScore}-${enemyScore}`;
+      formattedResult = "Défaite"
+      formattedScore = `${allyScore}-${enemyScore}`
     }
   }
 
-  return `${formattedDate} - ${data.meta.map.name} - ${formattedResult}`;
+  return <Grid container>
+    <Grid item xs={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
+    <Grid item xs={0.75} sx={{ textAlign: "left"}}>{data.meta.map.name}</Grid>
+    <Grid item xs={0.6} sx={{ textAlign: "left"}}>{formattedResult}</Grid>
+    <Grid item xs={1} sx={{ textAlign: "left"  }}>{formattedScore}</Grid>
+  </Grid>
+  
+  
 }
 
 export default AccordionMatchElement;

@@ -15,9 +15,9 @@ const ShotsSummary: FC<ShotsSummaryProps> = ({ shots }) => {
   return (
     <Box display="flex" flexDirection="row" alignItems="center" width="100%" height="100%" justifyContent="center">
       <Box height={"100%"} width={"100%"} position="relative">
-        <Typography style={{position: "absolute", top: "9%", right: "0%" }}>{shots.head} tirs</Typography>
-        <Typography style={{position: "absolute", top: "38%", right: "0%" }}>{shots.body} tirs</Typography>
-        <Typography style={{position: "absolute", top: "70%", right: "0%" }}>{shots.leg} tirs</Typography>
+        <Typography style={{position: "absolute", top: "13%", right: "0%" }}>{shots.head} tirs</Typography>
+        <Typography style={{position: "absolute", top: "39%", right: "0%" }}>{shots.body} tirs</Typography>
+        <Typography style={{position: "absolute", top: "68%", right: "0%" }}>{shots.leg} tirs</Typography>
       </Box>
 
       <div style={{ marginLeft: "8px", marginRight: "8px" }}>
@@ -68,9 +68,9 @@ const ShotsSummary: FC<ShotsSummaryProps> = ({ shots }) => {
       </div>
 
       <Box height={"100%"} width={"100%"} position="relative">
-        <Typography style={{position: "absolute", top: "9%", left: "0%" }}>{headshotRate}%</Typography>
-        <Typography style={{position: "absolute", top: "38%", left: "0%" }}>{bodyshotRate}%</Typography>
-        <Typography style={{position: "absolute", top: "70%", left: "0%" }}>{legshotRate}%</Typography>
+        <Typography style={{position: "absolute", top: "13%", left: "0%" }}>{headshotRate}%</Typography>
+        <Typography style={{position: "absolute", top: "39%", left: "0%" }}>{bodyshotRate}%</Typography>
+        <Typography style={{position: "absolute", top: "68%", left: "0%" }}>{legshotRate}%</Typography>
       </Box>
     </Box>
   );

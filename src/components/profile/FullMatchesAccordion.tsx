@@ -3,7 +3,7 @@ import { FullMatchesAccordionProps } from "../../interfaces/HenrikInterfaces";
 import AccordionMatchElement from "./AccordionMatchElement";
 
 
-const MatchesAccordion: FC<FullMatchesAccordionProps> = ({ data, page }) => {
+const MatchesAccordion: FC<FullMatchesAccordionProps> = ({ data, page, pageSize }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
 
@@ -14,7 +14,7 @@ const MatchesAccordion: FC<FullMatchesAccordionProps> = ({ data, page }) => {
 
   return (
     <>
-      {data.data.slice(page*10, 10+page*10).map((item) => {
+      {data.data.slice(page*pageSize, pageSize+page*pageSize).map((item) => {
         return (
           <AccordionMatchElement
             key={item.meta.id}

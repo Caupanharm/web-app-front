@@ -73,3 +73,15 @@ export interface NavButtonsProps{
   dataSize: number
   pageSize: number
 }
+
+export interface GaugeChartComponentProps{
+  nrOfLevels?: number,
+  arcsLength?: number[],
+  colors: string[]
+  values?: {
+    value: number,
+    minValue: number
+    maxValue: number
+  },
+  hideNeedle?: boolean
+}

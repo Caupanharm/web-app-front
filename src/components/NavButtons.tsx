@@ -36,9 +36,9 @@ export default function NavButtons({
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "8px" }}>
-      <Button  id="prev" onClick={handleDisplay} disabled={!prevButtonState} variant="contained" startIcon={<NavigateBeforeIcon />}> Page précédente</Button> 
+      <Button  id="prev" onClick={handleDisplay} disabled={!prevButtonState} variant="contained" startIcon={<NavigateBeforeIcon />} size="large" sx={{width: "15%", justifyContent: "left"}}> Page précédente</Button> 
       Page {page+1}/{Math.floor(dataSize/pageSize)+1}
-      <Button id="next" onClick={handleDisplay} disabled={!nextButtonState} variant="contained" endIcon={<NavigateNextIcon />}> Page suivante</Button>
+      <Button id="next" onClick={handleDisplay} disabled={!nextButtonState} variant="contained" endIcon={<NavigateNextIcon />} size="large" sx={{width: "15%", justifyContent: "right"}}> Page suivante</Button>
     </div>
   );
 }

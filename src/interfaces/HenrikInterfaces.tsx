@@ -13,6 +13,7 @@ export interface FullMatchesAccordionProps {
   player: string;
   page: number
   data: V1LifetimeMatches;
+  pageSize: number
 }
 
 export interface AccordionMatchElementProps {

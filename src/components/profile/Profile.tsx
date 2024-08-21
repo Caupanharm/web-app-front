@@ -52,12 +52,13 @@ function defineComponent(
   data: V1LifetimeMatches | HenrikErrorsInterface
 ) {
   const [matchPage, setMatchPage] = useState<number>(0);
+  const pageSize = 15
 
   if (isV1LifetimeMatchesInterface(data)) {
     return (
       <Box sx={{ width: "100%" }}>
-        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={data.results.returned} pageSize={15}/>
-        <FullMatchAccordion player={username} data={data} page={matchPage} />
+        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={data.results.returned} pageSize={pageSize}/>
+        <FullMatchAccordion player={username} data={data} page={matchPage} pageSize={pageSize} />
       </Box>
     );
   } else {

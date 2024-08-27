@@ -1,6 +1,6 @@
 import React, { useState, useRef, Suspense } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import PlayerCard from "./PlayerCard";
 import DemoMatchesAccordion from "./DemoMatchesAccordion";
 import Accordion from "@mui/material/Accordion";
@@ -53,7 +53,7 @@ function PlayersContent() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item>
+          <Grid>
             <div
               style={{ textAlign: "center", fontFamily: "Roboto, sans-serif" }}
             >
@@ -65,7 +65,7 @@ function PlayersContent() {
               {additionalPlayersData[hoveredPlayer].stats.kd}
             </div>
           </Grid>
-          <Grid item>
+          <Grid>
             <div
               style={{ textAlign: "center", fontFamily: "Roboto, sans-serif" }}
             >
@@ -82,7 +82,7 @@ function PlayersContent() {
               %
             </div>
           </Grid>
-          <Grid item>
+          <Grid>
             <div
               style={{ textAlign: "center", fontFamily: "Roboto, sans-serif" }}
             >
@@ -94,7 +94,7 @@ function PlayersContent() {
               {additionalPlayersData[hoveredPlayer].stats.acs}
             </div>
           </Grid>
-          <Grid item>
+          <Grid>
             <div
               style={{ textAlign: "center", fontFamily: "Roboto, sans-serif" }}
             >
@@ -147,7 +147,7 @@ function PlayersContent() {
           alignItems="center"
         >
           {additionalPlayersData.map((data, index) => (
-            <Grid item key={index}>
+            <Grid key={index}>
               <Box
                 sx={{
                   display: "flex",

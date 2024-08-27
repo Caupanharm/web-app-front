@@ -13,7 +13,11 @@ import {
 import { fetchPlayerMatches } from "../../queries";
 import FullMatchAccordion from "./FullMatchesAccordion";
 import Box from "@mui/material/Box";
+import {Button, ButtonGroup} from "@mui/material";
 import NavButtons from "../NavButtons";
+import { Typography } from "@mui/material";
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,6 +61,11 @@ function defineComponent(
   if (isV1LifetimeMatchesInterface(data)) {
     return (
       <Box sx={{ width: "100%" }}>
+        <ButtonGroup variant="outlined">
+          <LoadingButton>Historique des matchs</LoadingButton>
+          <LoadingButton>Analyse des compositions</LoadingButton>
+        </ButtonGroup>
+        <Button>Actualiser les données</Button>
         <NavButtons page={matchPage} setPage={setMatchPage} dataSize={data.results.returned} pageSize={pageSize}/>
         <FullMatchAccordion player={username} data={data} page={matchPage} pageSize={pageSize} />
       </Box>

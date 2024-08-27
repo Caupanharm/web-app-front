@@ -3,7 +3,6 @@ import GaugeChart from "react-gauge-chart";
 import { GaugeChartComponentProps } from "../../interfaces/Interfaces";
 
 const GaugeChartComponent: FC<GaugeChartComponentProps> = (props) => {
-  console.log(props)
 
   return (
       <GaugeChart id="gauge-chart-damage" style={{width:"50%"}}

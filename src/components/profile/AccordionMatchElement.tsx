@@ -5,7 +5,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import Grid from '@mui/material/Grid2'
 import {
   AccordionMatchElementProps,
   V1LifetimeMatchItem,
@@ -117,10 +117,10 @@ function formatSummary(data: V1LifetimeMatchItem) {
   }
 
   return <Grid container>
-    <Grid item xs={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
-    <Grid item xs={0.75} sx={{ textAlign: "left"}}>{data.meta.map.name}</Grid>
-    <Grid item xs={0.6} sx={{ textAlign: "left"}}>{formattedResult}</Grid>
-    <Grid item xs={1} sx={{ textAlign: "left"  }}>{formattedScore}</Grid>
+    <Grid size={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
+    <Grid size={0.75} sx={{ textAlign: "left"}}>{data.meta.map.name}</Grid>
+    <Grid size={0.6} sx={{ textAlign: "left"}}>{formattedResult}</Grid>
+    <Grid size={1} sx={{ textAlign: "left"  }}>{formattedScore}</Grid>
   </Grid>
   
   

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { ProfileProps } from "../../interfaces/Interfaces";
+import { ProfileProps } from "../../interfaces/ComponentsInterfaces";
 import MatchesAccordion from "./matches/FullMatchesAccordion";
 import { Button, ButtonGroup } from "@mui/material";
 import Analysis from "./analysis/Analysis";

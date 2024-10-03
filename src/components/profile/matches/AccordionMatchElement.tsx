@@ -4,12 +4,9 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Grid2'
-import {
-  AccordionMatchElementProps,
-  V1LifetimeMatchItem,
-} from "../../../interfaces/HenrikInterfaces";
+import { AccordionMatchElementProps } from "../../../interfaces/ComponentsInterfaces";
+import { V1LifetimeMatchItem } from "../../../interfaces/HenrikInterfaces";
 import MatchSummary from "./match/MatchSummary";
 
 const Accordion = styled((props: any) => (
@@ -78,10 +75,10 @@ const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
           },
         }}
       >
-      {formatSummary(data)}
+        {formatSummary(data)}
       </AccordionSummary>
       <AccordionDetails>
-        <MatchSummary data={data}/>
+        <MatchSummary data={data} />
       </AccordionDetails>
     </Accordion>
   );
@@ -118,12 +115,12 @@ function formatSummary(data: V1LifetimeMatchItem) {
 
   return <Grid container>
     <Grid size={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
-    <Grid size={0.75} sx={{ textAlign: "left"}}>{data.meta.map.name}</Grid>
-    <Grid size={0.6} sx={{ textAlign: "left"}}>{formattedResult}</Grid>
-    <Grid size={1} sx={{ textAlign: "left"  }}>{formattedScore}</Grid>
+    <Grid size={0.75} sx={{ textAlign: "left" }}>{data.meta.map.name}</Grid>
+    <Grid size={0.6} sx={{ textAlign: "left" }}>{formattedResult}</Grid>
+    <Grid size={1} sx={{ textAlign: "left" }}>{formattedScore}</Grid>
   </Grid>
-  
-  
+
+
 }
 
 export default AccordionMatchElement;

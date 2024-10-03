@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { NavButtonsProps } from "../interfaces/Interfaces";
+import { NavButtonsProps } from "../interfaces/ComponentsInterfaces";
 
 export default function NavButtons({
   page,

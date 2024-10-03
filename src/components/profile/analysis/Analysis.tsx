@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { AnalysisProps } from "../../../interfaces/HenrikInterfaces";
+import { AnalysisProps } from "../../../interfaces/ComponentsInterfaces";
 
 const Analysis: FC<AnalysisProps> = ({username}) => {
     return <>WIP</>

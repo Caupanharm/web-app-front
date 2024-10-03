@@ -8,7 +8,8 @@ import {
 import Loader from "../../Loader";
 import NavButtons from "../../NavButtons"
 import { fetchPlayerMatches } from "../../../queries";
-import { FullMatchesAccordionProps, V1LifetimeMatches, HenrikErrorsInterface } from "../../../interfaces/HenrikInterfaces";
+import { FullMatchesAccordionProps } from "../../../interfaces/ComponentsInterfaces";
+import { V1LifetimeMatches, HenrikErrorsInterface } from "../../../interfaces/HenrikInterfaces";
 
 const queryClient = new QueryClient({
   defaultOptions: {

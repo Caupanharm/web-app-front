@@ -9,30 +9,6 @@ export interface HenrikErrorInterface {
   details: string | undefined;
 }
 
-export interface FullMatchesAccordionProps {
-  username: string;
-}
-
-export interface AnalysisProps {
-  username: string
-}
-
-export interface AccordionMatchElementProps {
-  id: string;
-  data: V1LifetimeMatchItem;
-  expanded: string | false;
-  onChange: (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => void;
-}
-
-export interface DamageSummaryProps{
-  damage: Damage
-  teams: V1LifetimeMatchItemTeams
-}
-
-export interface ShotsSummaryProps{
-  shots: Shots
-}
-
 export interface MatchV4 {
   status: number;
   data: MatchV4Data;
@@ -92,18 +68,18 @@ interface V1LifetimeMatchItemStats{
   damage: Damage
 }
 
-interface V1LifetimeMatchItemTeams{
+export interface V1LifetimeMatchItemTeams{
   red: number | undefined
   blue: number | undefined
 }
 
-interface Shots{
+export interface Shots{
   head: number
   body: number
   leg: number
 }
 
-interface Damage{
+export interface Damage{
   made: number
   received: number
 }

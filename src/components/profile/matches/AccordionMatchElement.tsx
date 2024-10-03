@@ -9,8 +9,8 @@ import Grid from '@mui/material/Grid2'
 import {
   AccordionMatchElementProps,
   V1LifetimeMatchItem,
-} from "../../interfaces/HenrikInterfaces";
-import MatchSummary from "./MatchSummary";
+} from "../../../interfaces/HenrikInterfaces";
+import MatchSummary from "./match/MatchSummary";
 
 const Accordion = styled((props: any) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />

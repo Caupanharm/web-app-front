@@ -1,84 +1,41 @@
-import React, { FC, Suspense, useState } from "react";
+import React, { FC, useState } from "react";
 import { ProfileProps } from "../../interfaces/Interfaces";
-import {
-  V1LifetimeMatches,
-  HenrikErrorsInterface,
-} from "../../interfaces/HenrikInterfaces";
-import Loader from "../Loader";
-import {
-  useSuspenseQuery,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { fetchPlayerMatches } from "../../queries";
-import FullMatchAccordion from "./FullMatchesAccordion";
-import Box from "@mui/material/Box";
-import {Button, ButtonGroup} from "@mui/material";
-import NavButtons from "../NavButtons";
-import { Typography } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
+import MatchesAccordion from "./matches/FullMatchesAccordion";
+import { Button, ButtonGroup } from "@mui/material";
+import Analysis from "./analysis/Analysis";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 0,
-    },
-  },
-});
+
 
 const Profile: FC<ProfileProps> = ({ username }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<Loader />}>
-        <ProfileContent username={username}></ProfileContent>
-      </Suspense>
-    </QueryClientProvider>
+    <ProfileContent username={username}></ProfileContent>
   );
 };
 
 const ProfileContent: FC<ProfileProps> = ({ username }) => {
-  const { data: playerMatchesData } = useSuspenseQuery({
-    queryKey: ["playerMatchesData", username],
-    queryFn: () => fetchPlayerMatches(username),
-    refetchOnWindowFocus: false,
-  });
+  const [tabValue, setTabValue] = useState("matches");
+
+  const handleClick = event => {
+    setTabValue(event.target.id)
+  }
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Roboto, sans-serif" }}>
-      {defineComponent(username, playerMatchesData)}
-    </div>
+    <>
+      <ButtonGroup variant="outlined">
+        <Button id="matches" onClick={handleClick}>Historique des matchs</Button>
+        <Button id="analysis" onClick={handleClick}>Analyse des compositions</Button>
+      </ButtonGroup>
+      {defineComponent(tabValue, username)}
+    </>
   );
 };
 
-function defineComponent(
-  username: string,
-  data: V1LifetimeMatches | HenrikErrorsInterface
-) {
-  const [matchPage, setMatchPage] = useState<number>(0);
-  const pageSize = 15
-
-  if (isV1LifetimeMatchesInterface(data)) {
-    return (
-      <Box sx={{ width: "100%" }}>
-        <ButtonGroup variant="outlined">
-          <LoadingButton>Historique des matchs</LoadingButton>
-          <LoadingButton>Analyse des compositions</LoadingButton>
-        </ButtonGroup>
-        <Button>Actualiser les données</Button>
-        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={data.results.returned} pageSize={pageSize}/>
-        <FullMatchAccordion player={username} data={data} page={matchPage} pageSize={pageSize} />
-      </Box>
-    );
+function defineComponent(tabValue: string, username: string) {
+  if (tabValue == "matches") {
+    return <MatchesAccordion username={username} />
   } else {
-    return "error";
+    return <Analysis username={username}/>;
   }
-}
-
-function isV1LifetimeMatchesInterface(
-  data: V1LifetimeMatches | HenrikErrorsInterface
-): data is V1LifetimeMatches {
-  return "results" in data;
 }
 
 export default Profile;

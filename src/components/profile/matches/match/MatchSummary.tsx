@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Typography, Avatar } from "@mui/material";
 import Grid from '@mui/material/Grid2'
-import { V1LifetimeMatchItem } from "../../interfaces/HenrikInterfaces";
+import { V1LifetimeMatchItem } from "../../../../interfaces/HenrikInterfaces";
 import ShotsSummary from "./ShotsSummary";
 import GaugeChartComponent from "./GaugeChartComponent";
 import {Box} from "@mui/material";
-import { GaugeChartComponentProps } from "../../interfaces/Interfaces";
+import { GaugeChartComponentProps } from "../../../../interfaces/Interfaces";
 
 const MatchSummary: FC<{ data: V1LifetimeMatchItem }> = ({ data }) => {
   console.log(data)

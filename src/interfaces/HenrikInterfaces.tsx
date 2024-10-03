@@ -10,10 +10,11 @@ export interface HenrikErrorInterface {
 }
 
 export interface FullMatchesAccordionProps {
-  player: string;
-  page: number
-  data: V1LifetimeMatches;
-  pageSize: number
+  username: string;
+}
+
+export interface AnalysisProps {
+  username: string
 }
 
 export interface AccordionMatchElementProps {

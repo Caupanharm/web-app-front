@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { DamageSummaryProps } from "../../interfaces/HenrikInterfaces";
+import { DamageSummaryProps } from "../../../../interfaces/HenrikInterfaces";
 import GaugeChart from "react-gauge-chart";
 import Box from "@mui/material/Box";
 

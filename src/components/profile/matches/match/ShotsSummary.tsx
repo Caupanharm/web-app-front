@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ShotsSummaryProps } from "../../interfaces/HenrikInterfaces";
+import { ShotsSummaryProps } from "../../../../interfaces/HenrikInterfaces";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import "@mui/material/colors";

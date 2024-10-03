@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import GaugeChart from "react-gauge-chart";
-import { GaugeChartComponentProps } from "../../interfaces/Interfaces";
+import { GaugeChartComponentProps } from "../../../../interfaces/Interfaces";
 
 const GaugeChartComponent: FC<GaugeChartComponentProps> = (props) => {
 

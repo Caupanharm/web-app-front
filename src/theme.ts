@@ -6,10 +6,20 @@ const theme = createTheme({
     primary: {
       main: '#ffffff',
     },
-    secondary: {
+    secondary: { // yellow
       main: '#fdfd96',
       light: '#ffffb3',
       dark: '#c7c775'
+    },
+    green: {
+      main: '#77DD77',
+      light: '#A8E4A0', 
+      dark: '#4BB74D',
+    },
+    red: {
+      main: '#FF6961',
+      light: '#FFB3B0',
+      dark: '#E03E31',
     },
     background: {
       default: '#1d1d1d',

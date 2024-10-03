@@ -10,6 +10,7 @@ import NavButtons from "../../NavButtons"
 import { fetchPlayerMatches } from "../../../queries";
 import { FullMatchesAccordionProps } from "../../../interfaces/ComponentsInterfaces";
 import { V1LifetimeMatches, HenrikErrorsInterface } from "../../../interfaces/HenrikInterfaces";
+import { Box } from "@mui/material";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,8 @@ const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface
 
     const [matchPage, setMatchPage] = useState<number>(0);
     const pageSize = 15
+    const lastPageSize = playerMatchesData.data.length % pageSize
+    const numberOfPages = (lastPageSize > 0) ? Math.floor(playerMatchesData.data.length / pageSize) + 1 : Math.floor(playerMatchesData.data.length / pageSize)
 
 
     const [expanded, setExpanded] = useState<string | false>(false);
@@ -49,20 +52,21 @@ const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface
       };
 
     return (
-      <>
-        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={playerMatchesData.results.returned} pageSize={pageSize} />
-        {playerMatchesData.data.slice(matchPage * pageSize, pageSize + matchPage * pageSize).map((item) => {
+      <Box sx={{m:"1%"}}>
+        {playerMatchesData.data.slice(matchPage * pageSize, pageSize + matchPage * pageSize).map((item, index) => {
           return (
             <AccordionMatchElement
               key={item.meta.id}
               id={item.meta.id}
+              className={index === 0 ? 'firstAccordion' : index === pageSize-1 || (matchPage === numberOfPages && index === lastPageSize - 1) ? 'lastAccordion' : ''}
               data={item}
               expanded={expanded}
               onChange={handleChange}
             />
           );
         })}
-      </>
+        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={playerMatchesData.results.returned} pageSize={pageSize} />
+      </Box>
     )
   } else {
     return "error"

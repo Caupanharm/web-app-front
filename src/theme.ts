@@ -13,7 +13,7 @@ const theme = createTheme({
     },
     green: {
       main: '#77DD77',
-      light: '#A8E4A0', 
+      light: '#A8E4A0',
       dark: '#4BB74D',
     },
     red: {
@@ -32,39 +32,44 @@ const theme = createTheme({
   },
   components: {
     MuiToolbar: {
-        styleOverrides: {
-            root: {
-                backgroundColor: '#1d1d1d'
-            }
-        }
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default
+        })
+      }
     },
     MuiButton: {
       styleOverrides: {
-        root: {
-          backgroundColor: '#1d1d1d',
-          color: '#ffffff',
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.background.default,
           '&:hover': {
-            backgroundColor: '#3a3a3a',
+            backgroundColor: 'transparent',
+            color: theme.palette.secondary.main,
           },
-        },
+          '&:disabled': {
+            backgroundColor: 'transparent',
+            color: theme.palette.background.default
+          }
+        }),
       },
     },
     MuiTabs: {
-        styleOverrides: {
-          indicator: {
-            backgroundColor: '#FDFD96',
-          },
-        },
+      styleOverrides: {
+        indicator: ({ theme }) => ({
+          backgroundColor: theme.palette.secondary.main,
+        }),
       },
-      MuiTab: {
-        styleOverrides: {
-          root: {
-            '&.Mui-selected': {
-              color: '#FDFD96',
-            }
-          },
-        },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&.Mui-selected': {
+            color: theme.palette.secondary.main,
+          }
+        }),
       },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -79,6 +84,71 @@ const theme = createTheme({
             borderColor: '#ffffff',
           },
         },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          border: `1px solid ${theme.palette.divider}`,
+          "&.firstAccordion": {
+            borderTopLeftRadius: '8px',
+            borderTopRightRadius: '8px',
+            '& .MuiAccordionSummary-root': {
+              borderTopLeftRadius: '8px',
+              borderTopRightRadius: '8px',
+            },
+            '& .MuiAccordionDetails-root': {
+              borderTopLeftRadius: '8px',
+              borderTopRightRadius: '8px',
+            },
+          },
+          "&.lastAccordion": {
+            borderBottomLeftRadius: '8px',
+            borderBottomRightRadius: '8px',
+            '& .MuiAccordionSummary-root': {
+              borderBottomLeftRadius: '8px',
+              borderBottomRightRadius: '8px',
+            },
+            '& .MuiAccordionDetails-root': {
+              borderBottomLeftRadius: '8px',
+              borderBottomRightRadius: '8px',
+            },
+          },
+          "&::before": {
+            display: "none",
+          },
+        }),
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.paper,
+          flexDirection: "row-reverse",
+          color: "white",
+          fontWeight: "bold",
+          "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+            transform: "rotate(90deg)",
+          },
+          "& .MuiAccordionSummary-content": {
+            marginLeft: theme.spacing(1),
+          },
+          "& .MuiTypography-root": {
+            color: "white",
+            fontWeight: "bold",
+          },
+          "& .MuiSvgIcon-root": {
+            color: "white",
+          }
+        }),
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: theme.spacing(2),
+          borderTop: "1px solid rgba(0, 0, 0, .125)",
+        }),
       },
     },
   },

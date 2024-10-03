@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { ProfileProps } from "../../interfaces/ComponentsInterfaces";
 import MatchesAccordion from "./matches/FullMatchesAccordion";
-import { Button, ButtonGroup, Box, Typography } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import Analysis from "./analysis/Analysis";
 import { useTheme } from '@mui/material/styles';
 
@@ -29,20 +29,16 @@ const ProfileContent: FC<ProfileProps> = ({ username }) => {
         <Typography variant="h3" sx={{ color: theme.palette.secondary.light }}>{username.split('#')[0]}</Typography>
         <Typography variant="h6" sx={{ color: theme.palette.secondary.dark }}>#{username.split('#')[1]}</Typography>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "16px" }}>
-        <Box>
+      <Box sx={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center", marginTop: "16px" }}>
           <Button id="matches"
             onClick={handleClick}
             onMouseEnter={() => setHoveredButton("matches")}
             onMouseLeave={() => setHoveredButton(null)}
             variant={selectedButton === "matches" ? "outlined" : "text"}
             sx={{
-              color: hoveredButton === "analysis" ? "inherit" : selectedButton === 'matches' ? theme.palette.secondary.main : 'inherit',
-              borderColor: selectedButton === 'matches' ? theme.palette.secondary.main : 'inherit',
-              '&:hover': {
-                backgroundColor: 'transparent',
-                color: theme.palette.secondary.main,
-              },
+              width: "25%",
+              color: hoveredButton === "analysis" ? theme.palette.text.secondary : selectedButton === 'matches' ? theme.palette.secondary.main : theme.palette.text.secondary,
+              borderColor: selectedButton === 'matches' ? theme.palette.secondary.main : theme.palette.text.secondary,
             }}
           >
             Historique des matchs
@@ -53,14 +49,10 @@ const ProfileContent: FC<ProfileProps> = ({ username }) => {
             onMouseLeave={() => setHoveredButton(null)}
             variant={selectedButton === "analysis" ? "outlined" : "text"}
             sx={{
-              color: hoveredButton === "matches" ? "inherit" : selectedButton === 'analysis' ? theme.palette.secondary.main : 'inherit',
-              borderColor: selectedButton === 'analysis' ? theme.palette.secondary.main : 'inherit',
-              '&:hover': {
-                backgroundColor: 'transparent',
-                color: theme.palette.secondary.main,
-              },
-            }}>Analyse des compositions</Button>
-        </Box>
+              width: "25%",
+              color: hoveredButton === "matches" ? theme.palette.text.secondary : selectedButton === 'analysis' ? theme.palette.secondary.main : theme.palette.text.secondary,
+              borderColor: selectedButton === 'analysis' ? theme.palette.secondary.main : theme.palette.text.secondary,
+            }}>Analyse de match</Button>
       </Box>
       {defineComponent(selectedButton, username)}
     </>

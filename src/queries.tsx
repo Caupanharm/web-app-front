@@ -1,6 +1,7 @@
 import axios from "axios";
 import {AdditionalPlayerDataInterface, BracketMatchInterface, PlayerMatchesInterface} from "./interfaces/Interfaces"
 import { HenrikErrorsInterface, V1LifetimeMatches} from "./interfaces/HenrikInterfaces"
+
 export const fetchBracket = async () => {
   console.log("Querying http://localhost:8080/api/bracket")
   const data = await axios.get<BracketMatchInterface[]>("http://localhost:8080/api/bracket");

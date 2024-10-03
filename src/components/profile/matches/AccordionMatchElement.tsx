@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -9,78 +8,37 @@ import { AccordionMatchElementProps } from "../../../interfaces/ComponentsInterf
 import { V1LifetimeMatchItem } from "../../../interfaces/HenrikInterfaces";
 import MatchSummary from "./match/MatchSummary";
 
-const Accordion = styled((props: any) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  "&:not(:last-child)": {
-    borderBottom: 0,
-  },
-  "&::before": {
-    display: "none",
-  },
-}));
-
-const AccordionSummary = styled((props: any) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(90deg)",
-  },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
-
 const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
   id,
+  className,
   data,
   expanded,
   onChange,
 }) => {
   return (
-    <Accordion
+    <MuiAccordion
       key={id}
+      className={className}
       expanded={expanded === `panel${id}`}
       onChange={onChange(`panel${id}`)}
+      square={false}
     >
-      <AccordionSummary
+      <MuiAccordionSummary
         aria-controls={`panel${id}d-content`}
         id={`panel${id}d-header`}
+        expandIcon={<ArrowForwardIosSharpIcon />}
         sx={{
-          backgroundImage: `url(src/assets/images/maps/Loading_Screen_${data.meta.map.name}.jpg)`,
+          /*backgroundImage: `url(src/assets/images/maps/Loading_Screen_${data.meta.map.name}.jpg)`,*/
           backgroundSize: "cover",
           backgroundPosition: "center",
-          color: "white",
-          fontWeight: "bold",
-          "& .MuiTypography-root": {
-            color: "white",
-            fontWeight: "bold",
-          },
-          "& .MuiSvgIcon-root": {
-            color: "white",
-          },
         }}
       >
         {formatSummary(data)}
-      </AccordionSummary>
-      <AccordionDetails>
+      </MuiAccordionSummary>
+      <MuiAccordionDetails>
         <MatchSummary data={data} />
-      </AccordionDetails>
-    </Accordion>
+      </MuiAccordionDetails>
+    </MuiAccordion>
   );
 };
 
@@ -113,7 +71,7 @@ function formatSummary(data: V1LifetimeMatchItem) {
     }
   }
 
-  return <Grid container>
+  return <Grid container width="100%">
     <Grid size={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
     <Grid size={0.75} sx={{ textAlign: "left" }}>{data.meta.map.name}</Grid>
     <Grid size={0.6} sx={{ textAlign: "left" }}>{formattedResult}</Grid>

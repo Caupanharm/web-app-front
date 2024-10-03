@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-query";
 
 import NavBar from "../components/NavBar.tsx";
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -18,7 +17,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavBar />
-      <TanStackRouterDevtools />
     </QueryClientProvider>
   );
 }

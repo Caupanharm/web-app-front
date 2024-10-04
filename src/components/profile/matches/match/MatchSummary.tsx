@@ -8,7 +8,6 @@ import {Box} from "@mui/material";
 import { GaugeChartComponentProps } from "../../../../interfaces/ComponentsInterfaces";
 
 const MatchSummary: FC<{ data: V1LifetimeMatchItem }> = ({ data }) => {
-  console.log(data)
 
   const combatScoreData: GaugeChartComponentProps = {
     arcsLength: [0.33, 0.33, 0.33],
@@ -44,7 +43,7 @@ const MatchSummary: FC<{ data: V1LifetimeMatchItem }> = ({ data }) => {
   const totalShots = Object.values(data.stats.shots).reduce((sum, value) => sum + value, 0);
   const shotsRepartitionData: GaugeChartComponentProps = {
     arcsLength: [data.stats.shots.leg/totalShots, data.stats.shots.body/totalShots, data.stats.shots.head/totalShots],
-    colors: ["#FFFF00","#00FF00", "#0000FF"],
+    colors: ["#FF0000","#FFFF00", "#00FF00"],
     hideNeedle: true
   }
 

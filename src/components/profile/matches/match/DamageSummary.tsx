@@ -1,13 +1,10 @@
 import React, { FC } from "react";
-import { DamageSummaryProps } from "../../../../interfaces/HenrikInterfaces";
 import GaugeChart from "react-gauge-chart";
 import Box from "@mui/material/Box";
+import { DamageSummaryProps } from "../../../../interfaces/ComponentsInterfaces";
 
-const DamageSummary: FC<DamageSummaryProps> = ({ damage, teams }) => {
-  const damageMade = damage.made;
-  const damageReceived = damage.received;
-  const roundsPlayed = teams.blue! + teams.red!;
-  const damageDelta = Math.round(((damageMade - damageReceived) / roundsPlayed) * 10) / 10;
+const DamageSummary: FC<DamageSummaryProps> = ({ data }) => {
+  const damageDelta = Math.round(((data.stats.damageDealt - data.stats.damageReceived) / (data.stats.allyScore + data.stats.enemyScore)) * 10) / 10;
   const gaugePercent = scaleDelta(damageDelta)
 
   return (

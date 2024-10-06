@@ -1,108 +1,111 @@
 import React, { FC } from "react";
-import { Typography, Avatar } from "@mui/material";
+import { Box, Typography, Avatar, useTheme } from "@mui/material";
 import Grid from '@mui/material/Grid2'
-import { V1LifetimeMatchItem } from "../../../../interfaces/HenrikInterfaces";
 import ShotsSummary from "./ShotsSummary";
 import GaugeChartComponent from "./GaugeChartComponent";
-import {Box} from "@mui/material";
-import { GaugeChartComponentProps } from "../../../../interfaces/ComponentsInterfaces";
+import { GaugeChartComponentProps, MatchSummaryProps } from "../../../../interfaces/ComponentsInterfaces";
 
-const MatchSummary: FC<{ data: V1LifetimeMatchItem }> = ({ data }) => {
+const MatchSummary: FC<MatchSummaryProps> = ({ data }) => {
+  const theme = useTheme()
 
   const combatScoreData: GaugeChartComponentProps = {
+    id: "combat-score",
     arcsLength: [0.33, 0.33, 0.33],
-    colors: ["#FF0000","#FFFF00","#00FF00"],
+    colors: ["#FF0000", "#FFFF00", "#00FF00"],
     values: {
-      value: Math.round(data.stats.score / (data.teams.blue! + data.teams.red!)),
+      value: data.formattedStats.acs,
       minValue: 0,
       maxValue: 300
     }
   }
 
   const damageScoreData: GaugeChartComponentProps = {
+    id: "damage-score",
     arcsLength: [0.25, 0.25, 0.5],
-    colors: ["#FF0000","#FFFF00","#00FF00"],
+    colors: ["#FF0000", "#FFFF00", "#00FF00"],
     values: {
-      value: Math.round(data.stats.damage.made / (data.teams.blue! + data.teams.red!)),
+      value: data.formattedStats.adr,
       minValue: 0,
       maxValue: 300
     }
-    
+
   }
 
   const damageDeltaData: GaugeChartComponentProps = {
+    id: "damage-delta",
     nrOfLevels: 2,
-    colors: ["#FF0000","#00FF00"],
+    arcsLength: [0.5, 0.5],
+    colors: ["#FF0000", "#00FF00"],
     values: {
-      value: Math.round((data.stats.damage.made - data.stats.damage.received) / (data.teams.blue! + data.teams.red!)),
+      value: data.formattedStats.dd,
       minValue: -150,
       maxValue: 150
     }
   }
 
-  const totalShots = Object.values(data.stats.shots).reduce((sum, value) => sum + value, 0);
   const shotsRepartitionData: GaugeChartComponentProps = {
-    arcsLength: [data.stats.shots.leg/totalShots, data.stats.shots.body/totalShots, data.stats.shots.head/totalShots],
-    colors: ["#FF0000","#FFFF00", "#00FF00"],
+    id: "shots-repartition",
+    arcsLength: [data.formattedStats.lsp, data.formattedStats.bsp, data.formattedStats.hsp],
+    colors: ["#FF0000", "#FFFF00", "#00FF00"],
     hideNeedle: true
   }
 
+  console.log(data)
+
+
   return (
     <Grid container>
-      <Grid container size={6} justifyItems="center">
-        <Grid container size={4} justifyContent="center">
-        <Avatar alt={data.stats.character.name} variant="square" sx={{width: 64, height: 64}} src={`src/assets/images/agents/${data.stats.character.name}_icon.jpg`}/>
+      <Grid container size={6}>
+        <Grid container size={12}>
+          <Grid size={4} display="flex" flexDirection="column" alignItems="center" justifyContent="center"><Typography>Eliminations</Typography><Typography>{data.stats.kills}</Typography></Grid>
+          <Grid size={4} display="flex" flexDirection="column" alignItems="center" justifyContent="center"><Typography>Morts</Typography><Typography>{data.stats.deaths}</Typography></Grid>
+          <Grid size={4} display="flex" flexDirection="column" alignItems="center" justifyContent="center"><Typography>Assistances</Typography><Typography>{data.stats.assists}</Typography></Grid>
         </Grid>
-        <Grid container size={8}>
-              <Grid size={4}><Typography>Eliminations</Typography><Typography>{data.stats.kills}</Typography></Grid>
-              <Grid size={4}><Typography>Morts</Typography><Typography>{data.stats.deaths}</Typography></Grid>
-              <Grid size={4}><Typography>Assistances</Typography><Typography>{data.stats.assists}</Typography></Grid>
-          </Grid>
-          <Grid size={12} container alignItems="center" justifyContent="center">
-        <ShotsSummary shots={data.stats.shots} />
-      </Grid>
+        <Grid size={12} container alignItems="center" justifyContent="center">
+          <ShotsSummary data={data} />
+        </Grid>
       </Grid>
 
       <Grid container size={6}>
         <Grid container size={6} justifyContent="center" alignItems="center" marginBottom={4}>
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Score de combat moyen (ACS)</Typography>
-          <Typography>{combatScoreData.values ? combatScoreData.values.value : "Indisponible"}</Typography>
-          <GaugeChartComponent {...combatScoreData}/>
+            <Typography>Score de combat moyen (CSx̄)</Typography>
+            <Typography>{combatScoreData.values ? combatScoreData.values.value : "Indisponible"}</Typography>
+            <GaugeChartComponent {...combatScoreData} />
           </Box>
         </Grid>
         <Grid container size={6} justifyContent="center" alignItems="center" marginBottom={4}>
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Dégâts par round (D/R)</Typography>
-          <Typography>{damageScoreData.values? damageScoreData.values.value : "Indisponible"}</Typography>
-          <GaugeChartComponent {...damageScoreData}/>
+            <Typography>Dégâts par round (Dx̄)</Typography>
+            <Typography>{damageScoreData.values ? damageScoreData.values.value : "Indisponible"}</Typography>
+            <GaugeChartComponent {...damageScoreData} />
           </Box>
         </Grid>
         <Grid container size={6} justifyContent="center" alignItems="center" marginBottom={4}>
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Différence de dégâts (DΔ)</Typography>
-          <Typography>{damageDeltaData.values? damageDeltaData.values.value : "Indisponible"}</Typography>
-          <GaugeChartComponent {...damageDeltaData}/>
+            <Typography>Différence de dégâts (DΔ)</Typography>
+            <Typography>{damageDeltaData.values ? damageDeltaData.values.value : "Indisponible"}</Typography>
+            <GaugeChartComponent {...damageDeltaData} />
           </Box>
         </Grid>
         <Grid container size={6} justifyContent="center" alignItems="center" marginBottom={4}>
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Répartition des tirs</Typography>
-          <GaugeChartComponent {...shotsRepartitionData}/>
+            <Typography>Répartition des tirs</Typography>
+            <GaugeChartComponent {...shotsRepartitionData} />
           </Box>
         </Grid>
         <Grid container size={6} justifyContent="center" alignItems="center">
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Implication (KAST)</Typography>
-          <Typography>Indisponible</Typography>
-          <GaugeChartComponent/>
+            <Typography>Implication (KAST)</Typography>
+            <Typography>Indisponible</Typography>
+            <GaugeChartComponent />
           </Box>
         </Grid>
         <Grid container size={6} justifyContent="center" alignItems="center">
           <Box width={"100%"} height={"100%"} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography>Utilisation des compétences</Typography>
-          <Typography>Indisponible</Typography>
-          <GaugeChartComponent/>
+            <Typography>Utilisation des compétences</Typography>
+            <Typography>Indisponible</Typography>
+            <GaugeChartComponent />
           </Box>
         </Grid>
       </Grid>

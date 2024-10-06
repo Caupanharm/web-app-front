@@ -1,23 +1,19 @@
 import React, { FC } from "react";
-import { ShotsSummaryProps } from "../../../../interfaces/HenrikInterfaces";
+import { ShotsSummaryProps } from "../../../../interfaces/ComponentsInterfaces";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import "@mui/material/colors";
 
-const ShotsSummary: FC<ShotsSummaryProps> = ({ shots }) => {
-  const totalShots = shots.head + shots.body + shots.leg;
-  const headshotRate = Math.round((shots.head / totalShots) * 100 * 10) / 10;
-  const bodyshotRate = Math.round((shots.body / totalShots) * 100 * 10) / 10;
-  const legshotRate = Math.round((shots.leg / totalShots) * 100 * 10) / 10;
+const ShotsSummary: FC<ShotsSummaryProps> = ({ data }) => {
   const svgWidth = 88.4;
   const svgHeight = 105;
 
   return (
     <Box display="flex" flexDirection="row" alignItems="center" width="100%" height="100%" justifyContent="center">
       <Box height={"100%"} width={"100%"} position="relative">
-        <Typography style={{position: "absolute", top: "13%", right: "0%" }}>{shots.head} tirs</Typography>
-        <Typography style={{position: "absolute", top: "39%", right: "0%" }}>{shots.body} tirs</Typography>
-        <Typography style={{position: "absolute", top: "68%", right: "0%" }}>{shots.leg} tirs</Typography>
+        <Typography style={{position: "absolute", top: "13%", right: "0%" }}>{data.stats.headshots} tirs</Typography>
+        <Typography style={{position: "absolute", top: "39%", right: "0%" }}>{data.stats.bodyshots} tirs</Typography>
+        <Typography style={{position: "absolute", top: "68%", right: "0%" }}>{data.stats.legshots} tirs</Typography>
       </Box>
 
       <div style={{ marginLeft: "8px", marginRight: "8px" }}>
@@ -30,7 +26,7 @@ const ShotsSummary: FC<ShotsSummaryProps> = ({ shots }) => {
           <g>
             {/* Head */}
             <path
-              fill={`#${mapHitrateToRgba(headshotRate)}`}
+              fill={`#${mapHitrateToRgba(data.formattedStats.hsp)}`}
               d="M44.7 0Q50.7 1 51.7 5 54.7 16 51.7 22 50.7 23 48.7 23L54.7 27.4 34.7 27.4 40.7 23Q38.7 23 37.7 22 34.7 16 37.7 5 39.7 1 44.7 0"
             />
             {/* Head lines */}
@@ -68,9 +64,9 @@ const ShotsSummary: FC<ShotsSummaryProps> = ({ shots }) => {
       </div>
 
       <Box height={"100%"} width={"100%"} position="relative">
-        <Typography style={{position: "absolute", top: "13%", left: "0%" }}>{headshotRate}%</Typography>
-        <Typography style={{position: "absolute", top: "39%", left: "0%" }}>{bodyshotRate}%</Typography>
-        <Typography style={{position: "absolute", top: "68%", left: "0%" }}>{legshotRate}%</Typography>
+        <Typography style={{position: "absolute", top: "13%", left: "0%" }}>{data.formattedStats.hsp}%</Typography>
+        <Typography style={{position: "absolute", top: "39%", left: "0%" }}>{data.formattedStats.bsp}%</Typography>
+        <Typography style={{position: "absolute", top: "68%", left: "0%" }}>{data.formattedStats.lsp}%</Typography>
       </Box>
     </Box>
   );

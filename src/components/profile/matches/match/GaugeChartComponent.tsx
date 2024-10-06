@@ -1,21 +1,25 @@
 import React, { FC } from "react";
 import GaugeChart from "react-gauge-chart";
 import { GaugeChartComponentProps } from "../../../../interfaces/ComponentsInterfaces";
+import { useTheme } from "@mui/material";
 
 const GaugeChartComponent: FC<GaugeChartComponentProps> = (props) => {
+    const theme = useTheme()
 
   return (
-      <GaugeChart id="gauge-chart-damage" style={{width:"50%"}}
+      <GaugeChart 
+      id={props.id}
+      style={{width:"50%"}}
       percent={props.values ? scale(props.values.value, props.values.minValue, props.values.maxValue) : 0}
       nrOfLevels={props.nrOfLevels ? props.nrOfLevels : 1}
-      arcsLength={props.arcsLength ? props.arcsLength : 0}
+      arcsLength={props.arcsLength ? props.arcsLength : [0]}
       colors={props.colors ? props.colors : []}
       arcWidth={0.125}
       arcPadding={0.01}
       cornerRadius={3}
       animate={true} 
-      needleColor={props.hideNeedle? "#FFFFFF": "#000000"}
-      needleBaseColor={props.hideNeedle? "#FFFFFF": "#000000"}
+      needleColor={props.hideNeedle? theme.palette.grey.light: "#000000"}
+      needleBaseColor={props.hideNeedle? theme.palette.grey.light: "#000000"}
       hideText={true}
       needleScale={props.hideNeedle? 0 : 0.8}
       

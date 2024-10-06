@@ -1,6 +1,6 @@
 import axios from "axios";
-import {AdditionalPlayerDataInterface, BracketMatchInterface, PlayerMatchesInterface} from "./interfaces/Interfaces"
-import { HenrikErrorsInterface, V1LifetimeMatches} from "./interfaces/HenrikInterfaces"
+import {AdditionalPlayerDataInterface, BracketMatchInterface, PlayerMatchesInterface} from "./interfaces/LocalDataInterfaces"
+import { CaupanharmResponse } from "./interfaces/data/CaupanharmResponse";
 
 export const fetchBracket = async () => {
   console.log("Querying http://localhost:8080/api/bracket")
@@ -22,6 +22,6 @@ export const fetchStats = async () => {
 
 export const fetchPlayerMatches = async (username: string) => {
   console.log(`Querying http://localhost:8080/api/matches/${username.split('#')[0]}/${username.split('#')[1]}`)
-  const data = await axios.get<V1LifetimeMatches | HenrikErrorsInterface>(`http://localhost:8080/api/matches/${username.split('#')[0]}/${username.split('#')[1]}`)
+  const data = await axios.get<CaupanharmResponse>(`http://localhost:8080/api/matches/${username.split('#')[0]}/${username.split('#')[1]}`)
   return data.data;
 }

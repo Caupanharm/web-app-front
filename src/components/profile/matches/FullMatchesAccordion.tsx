@@ -9,8 +9,9 @@ import Loader from "../../Loader";
 import NavButtons from "../../NavButtons"
 import { fetchPlayerMatches } from "../../../queries";
 import { FullMatchesAccordionProps } from "../../../interfaces/ComponentsInterfaces";
-import { V1LifetimeMatches, HenrikErrorsInterface } from "../../../interfaces/HenrikInterfaces";
 import { Box } from "@mui/material";
+import { CaupanharmResponse } from "../../../interfaces/data/CaupanharmResponse";
+import { CaupanharmMatches } from "../../../interfaces/data/CaupanharmMatches";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,13 +37,14 @@ const MatchesAccordion: FC<FullMatchesAccordionProps> = ({ username }) => {
   );
 };
 
-const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface) => {
-  if (isV1LifetimeMatchesInterface(playerMatchesData)) {
+const renderData = (playerMatchesData: CaupanharmResponse) => {
+  if (playerMatchesData.bodyType === "matches") {
+    const matches = playerMatchesData.body as CaupanharmMatches
 
     const [matchPage, setMatchPage] = useState<number>(0);
     const pageSize = 15
-    const lastPageSize = playerMatchesData.data.length % pageSize
-    const numberOfPages = (lastPageSize > 0) ? Math.floor(playerMatchesData.data.length / pageSize) + 1 : Math.floor(playerMatchesData.data.length / pageSize)
+    const lastPageSize = matches.data.length % pageSize
+    const numberOfPages = (lastPageSize > 0) ? Math.floor(matches.data.length / pageSize) + 1 : Math.floor(matches.data.length / pageSize)
 
 
     const [expanded, setExpanded] = useState<string | false>(false);
@@ -52,12 +54,12 @@ const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface
       };
 
     return (
-      <Box sx={{m:"1%"}}>
-        {playerMatchesData.data.slice(matchPage * pageSize, pageSize + matchPage * pageSize).map((item, index) => {
+      <Box sx={{my:"1%", mx: "20%"}}>
+        {matches.data.slice(matchPage * pageSize, pageSize + matchPage * pageSize).map((item, index) => {
           return (
             <AccordionMatchElement
-              key={item.meta.id}
-              id={item.meta.id}
+              key={item.metadata.id}
+              id={item.metadata.id}
               className={index === 0 ? 'firstAccordion' : index === pageSize-1 || (matchPage === numberOfPages && index === lastPageSize - 1) ? 'lastAccordion' : ''}
               data={item}
               expanded={expanded}
@@ -65,7 +67,7 @@ const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface
             />
           );
         })}
-        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={playerMatchesData.results.returned} pageSize={pageSize} />
+        <NavButtons page={matchPage} setPage={setMatchPage} dataSize={matches.dataInitialSize} pageSize={pageSize} />
       </Box>
     )
   } else {
@@ -73,13 +75,6 @@ const renderData = (playerMatchesData: V1LifetimeMatches | HenrikErrorsInterface
   }
 
 
-}
-
-
-function isV1LifetimeMatchesInterface(
-  data: V1LifetimeMatches | HenrikErrorsInterface
-): data is V1LifetimeMatches {
-  return "results" in data;
 }
 
 export default MatchesAccordion;

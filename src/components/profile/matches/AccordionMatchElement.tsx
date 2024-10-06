@@ -5,8 +5,9 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Grid from '@mui/material/Grid2'
 import { AccordionMatchElementProps } from "../../../interfaces/ComponentsInterfaces";
-import { V1LifetimeMatchItem } from "../../../interfaces/HenrikInterfaces";
 import MatchSummary from "./match/MatchSummary";
+import { CaupanharmMatchLight } from "../../../interfaces/data/CaupanharmMatchLight";
+import { Typography, useTheme } from "@mui/material";
 
 const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
   id,
@@ -15,6 +16,8 @@ const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
   expanded,
   onChange,
 }) => {
+  const theme = useTheme()
+
   return (
     <MuiAccordion
       key={id}
@@ -26,11 +29,19 @@ const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
       <MuiAccordionSummary
         aria-controls={`panel${id}d-content`}
         id={`panel${id}d-header`}
-        expandIcon={<ArrowForwardIosSharpIcon />}
+        expandIcon={<img
+          src={`src/assets/images/agents/${data.stats.agent}_icon.jpg`}
+          alt={`${data.stats.agent}'s icon`}
+          style={{ width: "64px", height: "64px", marginRight: "16px" }}
+        />}
         sx={{
-          /*backgroundImage: `url(src/assets/images/maps/Loading_Screen_${data.meta.map.name}.jpg)`,*/
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: `linear-gradient(to right, ${data.formattedStats.gameIssue === "win"
+            ? theme.palette.green.dark
+            : data.formattedStats.gameIssue === "lose"
+              ? theme.palette.red.dark
+              : data.formattedStats.gameIssue === "draw"
+                ? theme.palette.secondary.dark
+                : theme.palette.background.paper}33 10%, ${theme.palette.background.paper} 50%)`
         }}
       >
         {formatSummary(data)}
@@ -42,40 +53,53 @@ const AccordionMatchElement: FC<AccordionMatchElementProps> = ({
   );
 };
 
-function formatSummary(data: V1LifetimeMatchItem) {
-  const dateItems = data.meta.started_at.split("T")[0].split("-"); // YYYY-MM-DDTHH:mm:ss.sssZ --> [YYYY,MM,DD]
+function formatSummary(data: CaupanharmMatchLight) {
+  const dateItems = data.metadata.startTime.split("T")[0].split("-"); // YYYY-MM-DDTHH:mm:ss.sssZ --> [YYYY,MM,DD]
   const formattedDate = dateItems[2] + "/" + dateItems[1];
 
-  let allyScore: number, enemyScore: number;
-  let formattedResult: string = "";
-  let formattedScore: string = "";
-
-  if (data.teams.red != undefined && data.teams.blue != undefined) {
-    if (data.stats.team.toLowerCase() === "red") {
-      allyScore = data.teams.red;
-      enemyScore = data.teams.blue;
-    } else {
-      allyScore = data.teams.blue;
-      enemyScore = data.teams.red;
-    }
-
-    if (allyScore == enemyScore) {
-      formattedResult = "Egalité"
-      formattedScore = `${allyScore}-${enemyScore}`
-    } else if (allyScore > enemyScore) {
-      formattedResult = "Victoire"
-      formattedScore = `${allyScore}-${enemyScore}`
-    } else {
-      formattedResult = "Défaite"
-      formattedScore = `${allyScore}-${enemyScore}`
-    }
+  const resultMap = {
+    "win": "Victoire",
+    "lose": "Défaite",
+    "draw": "Egalité"
   }
 
-  return <Grid container width="100%">
-    <Grid size={0.5} sx={{ textAlign: "left" }}>{formattedDate}</Grid>
-    <Grid size={0.75} sx={{ textAlign: "left" }}>{data.meta.map.name}</Grid>
-    <Grid size={0.6} sx={{ textAlign: "left" }}>{formattedResult}</Grid>
-    <Grid size={1} sx={{ textAlign: "left" }}>{formattedScore}</Grid>
+  return <Grid container width="100%" columns={9}>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>{formattedDate}</Typography>
+      <Typography>{data.metadata.cluster}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>{data.metadata.map}</Typography>
+      <Typography>{data.stats.agent}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>{resultMap[data.formattedStats.gameIssue] ?? ""}</Typography>
+      <Typography>{`${data.stats.allyScore}-${data.stats.enemyScore}`}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>K/D/A</Typography>
+      <Typography>{data.formattedStats.kda}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>K/D</Typography>
+      <Typography>{data.formattedStats.kd}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>DΔ</Typography>
+      <Typography>{data.formattedStats.dd}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>HS%</Typography>
+      <Typography>{data.formattedStats.hsp}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>Dx̄</Typography>
+      <Typography>{data.formattedStats.adr}</Typography>
+    </Grid>
+    <Grid size={1} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Typography>CSx̄</Typography>
+      <Typography>{data.formattedStats.acs}</Typography>
+    </Grid>
   </Grid>
 
 

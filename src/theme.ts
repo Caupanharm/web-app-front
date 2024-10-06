@@ -21,6 +21,11 @@ const theme = createTheme({
       light: '#FFB3B0',
       dark: '#E03E31',
     },
+    grey: {
+      main: '#2a2a2a',
+      light: '#353535',
+      dark: '#1d1d1d',
+    },
     background: {
       default: '#1d1d1d',
       paper: '#2a2a2a',
@@ -125,20 +130,8 @@ const theme = createTheme({
         root: ({ theme }) => ({
           backgroundColor: theme.palette.background.paper,
           flexDirection: "row-reverse",
-          color: "white",
-          fontWeight: "bold",
           "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-            transform: "rotate(90deg)",
-          },
-          "& .MuiAccordionSummary-content": {
-            marginLeft: theme.spacing(1),
-          },
-          "& .MuiTypography-root": {
-            color: "white",
-            fontWeight: "bold",
-          },
-          "& .MuiSvgIcon-root": {
-            color: "white",
+            transform: "rotate(3600000deg)",
           }
         }),
       },
@@ -148,7 +141,10 @@ const theme = createTheme({
         root: ({ theme }) => ({
           padding: theme.spacing(2),
           borderTop: "1px solid rgba(0, 0, 0, .125)",
+          backgroundColor: theme.palette.grey.light,
+          color: theme.palette.text.primary
         }),
+        
       },
     },
   },
